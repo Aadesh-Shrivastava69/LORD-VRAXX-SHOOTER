@@ -136,11 +136,8 @@ def show_score(x,y):
 
 def game_over():
     global game_state
-    over_text  = over_font.render('VRAXXED !!!!!!!',True,(255,255,255))
-    screen.blit(over_text,(200,250))
-    if retry_button.draw():
-        game_state = 'play'
-        print("oops")
+    
+
         
 
     
@@ -164,41 +161,7 @@ def iscollision(enemyX,enemyY,bulletX,bulletY):
    else :
     return False
 
-
-
-def menu():
-    global playerX
-    global playerY
-    global playerX_change
-    global playerY_change
-    global game_state
-    run = True
-    while run:
-        if game_state == 'menu':
-            screen.fill((0,0,0))
-
-            if start_button.draw():
-                game_state = 'play'
-                print("play")
-                play()
-
-            #font1 = pygame.font.Font('freesansbold.ttf', 64)
-            #text1 = font1.render("Press Enter to play",True,(255,255,255))
-            #screen.blit(text1,(112,200))
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-                    game_state = 'play'
-                    play()
-                
-
-                    
-            pygame.display.update()
-
-#game loop
-
-def play():
+def gameloop():
     global playerX
     global playerY
     global playerX_change
@@ -210,15 +173,33 @@ def play():
     global bullet_state
     global score_value
     global game_state
-    
-    running = True 
+
+    running = True
     while running:
-        
-        if game_state == 'play':
 
-    
+        if game_state == 'menu':
 
-        # rgb background
+
+            screen.fill((0,0,0))
+
+            if start_button.draw():
+                game_state = 'play'
+                print("play")
+                
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    game_state = 'play'
+                    
+                
+
+                    
+            pygame.display.update()
+            
+        elif game_state == 'play':
+
+            # rgb background
 
             screen.fill((2,0,0))
             screen.blit(bg,(0,0))
@@ -308,9 +289,27 @@ def play():
             show_score(textX,textY)
             
             pygame.display.update()
+            
+        elif game_state == 'over':
+            over_text  = over_font.render('VRAXXED !!!!!!!',True,(255,255,255))
+            screen.blit(over_text,(200,250))
+            if retry_button.draw():
+                game_state = 'play'
+                print("oops")
+                    
 
 
-menu()
+            
+
+
+
+
+
+    
+
+        
+
+gameloop()
 
     
 
