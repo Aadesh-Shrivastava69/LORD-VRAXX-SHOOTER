@@ -300,7 +300,7 @@ def gameloop():
                     running = False
 
                     
-            print("game over")
+            
             screen.fill((0, 0, 0))
             over_text  = over_font.render('VRAXXED !!!!!!!',True,(255,255,255))
             screen.blit(over_text,(200,250))
