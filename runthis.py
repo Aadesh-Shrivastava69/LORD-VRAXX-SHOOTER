@@ -11,6 +11,7 @@ game_state = 'menu'
 
     
 
+    
 
 
 #creating screen 
@@ -23,7 +24,7 @@ pygame.display.set_caption("lord vraxx shooter")
 
 start_img = pygame.image.load("start_img.png").convert_alpha()
 play_again = pygame.image.load("play_again.png").convert_alpha()
-#quit = pygame.image.load("")
+
 
 
 # button class
@@ -130,12 +131,15 @@ over_font = pygame.font.Font('freesansbold.ttf',56)
 
 #defining
 
+
+
+
+
 def show_score(x,y):
     score = font.render('score :' + str(score_value),True, (255,255,255))
     screen.blit(score , (x,y))
 
-def game_over():
-    global game_state
+
     
 
         
@@ -245,7 +249,7 @@ def gameloop():
                         enemyY[j] = 2000
                         playerX = 1000
                         playerY = 1000
-                    game_over()
+                    game_state = 'over'
                         
                         
                     end = mixer.Sound('LORD.wav')
@@ -291,13 +295,32 @@ def gameloop():
             pygame.display.update()
             
         elif game_state == 'over':
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+                    
+            print("game over")
+            screen.fill((0, 0, 0))
             over_text  = over_font.render('VRAXXED !!!!!!!',True,(255,255,255))
             screen.blit(over_text,(200,250))
-            if retry_button.draw():
-                game_state = 'play'
-                print("oops")
-                    
 
+
+            if retry_button.draw():
+            
+                reset_game()
+                game_state = 'play'
+            pygame.display.update()
+                    
+def reset_game():
+    global num_enimies
+    global playerX, playerY, bulletY, bullet_state, score_value, enemyX, enemyY
+    playerX, playerY = 370, 482
+    bulletY, bullet_state = 480, 'ready'
+    score_value = 0
+    for i in range(num_enimies ):
+        enemyX[i] = random.randint(0, 736)
+        enemyY[i] = random.randint(0, 150)
 
             
 
