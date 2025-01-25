@@ -25,6 +25,14 @@ pygame.display.set_caption("lord vraxx shooter")
 start_img = pygame.image.load("start_img.png").convert_alpha()
 play_again = pygame.image.load("play_again.png").convert_alpha()
 
+vraxx_img = pygame.image.load("vraxx.png")
+
+def vraxx(x,y):
+    screen.blit(vraxx_img, (x,y))
+
+xv =  (800 * 0.45)
+yv = (600 * 0.8)
+
 
 
 # button class
@@ -136,7 +144,7 @@ over_font = pygame.font.Font('freesansbold.ttf',56)
 
 
 def show_score(x,y):
-    score = font.render('score :' + str(score_value),True, (255,255,255))
+    score = font.render('score : ' + str(score_value),True, (255,255,255))
     screen.blit(score , (x,y))
 
 
@@ -177,6 +185,9 @@ def gameloop():
     global bullet_state
     global score_value
     global game_state
+    global vraxx_img
+    global xv
+    global yv
 
     running = True
     while running:
@@ -185,6 +196,12 @@ def gameloop():
 
 
             screen.fill((0,0,0))
+            
+            screen.blit(vraxx_img, (100,200))
+            
+            
+
+            
 
             if start_button.draw():
                 game_state = 'play'
@@ -200,6 +217,7 @@ def gameloop():
 
                     
             pygame.display.update()
+
             
         elif game_state == 'play':
 
